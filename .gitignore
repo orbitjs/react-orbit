@@ -1,0 +1,11 @@
+# output
+lib/
+dist/
+coverage/
+
+# dependencies
+/node_modules
+
+# misc
+npm-debug.log
+.DS_Store

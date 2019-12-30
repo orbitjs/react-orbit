@@ -21,6 +21,5 @@ export default function Store({memorySource, remoteSource, addStrategies, childr
   if (isInitializing) {
     return null;
   }
-
   return <ReactOrbitContext.Provider value={sourcesRef.current}>{children}</ReactOrbitContext.Provider>;
 }

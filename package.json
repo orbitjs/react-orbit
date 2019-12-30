@@ -2,9 +2,41 @@
   "name": "react-orbit",
   "version": "0.0.0",
   "description": "React bindings for Orbit.js",
-  "main": "src/index.js",
+  "main": "lib/index.js",
   "repository": "https://github.com/selvagsz/react-orbit.git",
   "author": "selvagsz <selvaganeshbsg@gmail.com>",
   "license": "MIT",
-  "private": false
+  "private": false,
+  "scripts": {
+    "clean": "rm -rf lib",
+    "build:commonjs": "./node_modules/.bin/babel src --out-dir lib",
+    "build": "npm run clean && npm run build:commonjs",
+    "prepublish": "npm run build",
+    "precommit": "lint-staged"
+  },
+  "lint-staged": {
+    "src/**/*.js": [
+      "./node_modules/.bin/prettier --print-width 100 --single-quote --trailing-comma es5 --write",
+      "git add"
+    ]
+  },
+  "keywords": [
+    "react",
+    "reactjs",
+    "orbit",
+    "orbitjs",
+    "state management"
+  ],
+  "files": [
+    "lib",
+    "dist",
+    "src"
+  ],
+  "devDependencies": {
+    "@babel/cli": "^7.7.7",
+    "@babel/core": "^7.7.7",
+    "@babel/preset-env": "^7.7.7",
+    "@babel/preset-react": "^7.7.4",
+    "prettier": "1.19.1"
+  }
 }
