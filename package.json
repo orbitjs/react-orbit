@@ -1,0 +1,10 @@
+{
+  "name": "react-orbit",
+  "version": "0.0.0",
+  "description": "React bindings for Orbit.js",
+  "main": "src/index.js",
+  "repository": "https://github.com/selvagsz/react-orbit.git",
+  "author": "selvagsz <selvaganeshbsg@gmail.com>",
+  "license": "MIT",
+  "private": false
+}
