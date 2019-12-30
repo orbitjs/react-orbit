@@ -1,5 +1,3 @@
-
-
 const initialState = {
   isLoading: false,
   data: undefined,

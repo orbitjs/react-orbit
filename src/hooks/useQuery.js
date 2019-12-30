@@ -1,4 +1,4 @@
-import {useReducer, useCallback, useEffect, useState} from 'react';
+import { useReducer, useCallback, useEffect, useState } from 'react';
 import queryReducer from './utils/reducer';
 import useStore from './useStore';
 
@@ -11,10 +11,10 @@ export default function useQuery() {
     let unsubscribe;
     let immediate = true;
     if (_query) {
-      unsubscribe = store.memory.cache.liveQuery(_query).on((data) => {
+      unsubscribe = store.memory.cache.liveQuery(_query).on(data => {
         dispatch({
           type: immediate ? 'DATA_LOADING' : 'DATA_UPDATE',
-          payload: {data},
+          payload: { data },
         });
         immediate = false;
       });
@@ -41,11 +41,11 @@ export default function useQuery() {
   }, [store.memory, _query]);
 
   const query = useCallback(
-    (query) => {
+    query => {
       setQuery(() => query);
     },
     [setQuery]
   );
 
-  return {...state, query};
+  return { ...state, query };
 }

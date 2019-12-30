@@ -1,9 +1,9 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Coordinator from '@orbit/coordinator';
-import ReactOrbitContext from './Context'
+import ReactOrbitContext from './Context';
 
-export default function Store({memorySource, remoteSource, addStrategies, children}) {
-  const sourcesRef = useRef({memory: memorySource, remote: remoteSource});
+export default function Store({ memorySource, remoteSource, addStrategies, children }) {
+  const sourcesRef = useRef({ memory: memorySource, remote: remoteSource });
   const [isInitializing, setIsInitializing] = useState(true);
 
   useEffect(() => {
@@ -21,5 +21,7 @@ export default function Store({memorySource, remoteSource, addStrategies, childr
   if (isInitializing) {
     return null;
   }
-  return <ReactOrbitContext.Provider value={sourcesRef.current}>{children}</ReactOrbitContext.Provider>;
+  return (
+    <ReactOrbitContext.Provider value={sourcesRef.current}>{children}</ReactOrbitContext.Provider>
+  );
 }
