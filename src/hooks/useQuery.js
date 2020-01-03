@@ -4,45 +4,49 @@ import useStore from './useStore';
 
 export default function useQuery() {
   const store = useStore();
+  const dataStore = store.memory;
   const [state = {}, dispatch] = useReducer(queryReducer);
   const [_query, setQuery] = useState();
 
   useEffect(() => {
-    let unsubscribe;
-    let immediate = true;
+    let subscription;
     if (_query) {
-      unsubscribe = store.memory.cache.liveQuery(_query).on(data => {
+      subscription = dataStore.cache.liveQuery(_query).subscribe(data => {
+        debugger
         dispatch({
-          type: immediate ? 'DATA_LOADING' : 'DATA_UPDATE',
+          type: 'DATA_UPDATE',
           payload: { data },
         });
-        immediate = false;
       });
     }
-
     return () => {
-      if (unsubscribe) {
-        unsubscribe();
+      if (subscription) {
+        subscription.unsubscribe();
       }
     };
-  }, [store.memory, _query]);
+  }, [dataStore, _query]);
 
   useEffect(() => {
     async function fetch(query) {
       try {
-        await store.memory.query(query);
+        const data = await dataStore.query(query);
+        dispatch({
+          type: 'DATA_UPDATE',
+          payload: { data },
+        });
       } catch (e) {
         // noop
+        debugger
       }
     }
     if (_query) {
       fetch(_query);
     }
-  }, [store.memory, _query]);
+  }, [dataStore, _query]);
 
   const query = useCallback(
     query => {
-      setQuery(() => query);
+      setQuery(() => query)
     },
     [setQuery]
   );

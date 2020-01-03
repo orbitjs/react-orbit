@@ -18,6 +18,20 @@ export default function Store({ memorySource, remoteSource, addStrategies, child
     initializeCoordinator();
   }, [addStrategies]);
 
+  useEffect(() => {
+    const memorySource = sourcesRef.current.memory;
+    function skipTaskOnRequestQueue(e) {
+      console.log('Request task error on memory source, Skipping', e);
+      return memorySource.requestQueue.skip();
+    }
+    if (memorySource) {
+      memorySource.requestQueue.on('fail', skipTaskOnRequestQueue);
+      return () => {
+        memorySource.requestQueue.off('fail', skipTaskOnRequestQueue);
+      }
+    }
+  }, []);
+
   if (isInitializing) {
     return null;
   }
