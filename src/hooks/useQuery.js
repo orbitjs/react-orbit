@@ -11,8 +11,8 @@ export default function useQuery() {
   useEffect(() => {
     let subscription;
     if (_query) {
-      subscription = dataStore.cache.liveQuery(_query).subscribe(data => {
-        debugger
+      subscription = dataStore.cache.liveQuery(_query).subscribe((cacheLiveQuery) => {
+        let data = cacheLiveQuery.query();
         dispatch({
           type: 'DATA_UPDATE',
           payload: { data },
